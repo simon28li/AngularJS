@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>model的扩展</title>
+	
+	</head>
+	<body>
+		1.ng-model的扩展   输入的时候不更新数据，光标离开时更新数据<br>
+		<!--
+		<div ng-controller="test" >
+			<input type="text" ng-model="myText" ng-model-options="{updateOn:'blur'}"/>
+			{{myText}}
+		</div>-->
+		2.ng-controller 使用as 的写法  面向对象的写法<br>
+		<div ng-controller="test as yy" >
+			{{yy.num}}--{{yy.show()}}--{{yy.name}}
+		</div>
+		
+		
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',Fntest]);
+			function Fntest($scope){}
+			//prototype  表示原型  
+			Fntest.prototype.num = 123;
+			Fntest.prototype.name = 'lili';
+			Fntest.prototype.show = function(){console.log('hello'); };
+			
+		</script>
+		
+	</body>
+</html>

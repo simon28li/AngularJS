@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title>工具方法3</title>
+	</head>
+	<body>
+		<div id="ce">test</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			//angular.version    判断angular库的版本
+			//console.log(angular.version);
+			
+			//angular.equals     判断是否相等
+			var a = 1;
+			var b =2;
+			var c =1;
+			//console.log(angular.equals(a,b));
+			//console.log(angular.equals(a,c));
+			//console.log(angular.equals(NaN,NaN));
+			
+			
+			//angular.forEach  循环  s使用几率大
+			var values = ['a','b','c'];
+			var result = [];
+			angular.forEach(values,function(value,i){
+				//console.log(value);
+				//console.log(i);				
+			});
+			//将value和i链接到一起
+			//使用 forEach 第三个参数 ，来接收 回调函数的 计算结果
+			angular.forEach(values,function(value,i){
+				this.push(value+i);		
+			},result);
+			//console.log(result);
+			
+			//angular.fromJson/toJson  字符串转json/json转字符串
+			var str = '{"name":"lili","age":"20"}';
+			var json = angular.fromJson(str);
+			//console.log(json);
+			var jsonstr = angular.toJson(json);
+			//console.log(jsonstr);
+			//angular.identity/noop   将参数显示出来 /空函数
+			var  str ="hello";
+			//console.log(angular.identity(str));//初始化的时候使用
+			//console.log(angular.noop ());
+			function noop(){}
+			//angular.lowercase/uppercase   转小写/转大写
+			//console.log(angular.lowercase ('HELLO'));
+			//console.log(angular.uppercase ('hello'));
+			
+			//angular.element      获取元素 
+			//包装了一个不全的jquery库
+			console.log(angular.element (document.querySelector('#ce')));
+			
+			
+			//angular.bootstrap   动态初始化两个app时使用   经常使用
+			
+			
+			//angular.injector       注册器
+
+		</script>
+	</body>
+</html>

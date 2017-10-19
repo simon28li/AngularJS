@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<style>
+			table,tr{text-align: center;width: 300px;}
+			.odd{background: green;}
+			.even{background: yellow;}
+		</style>
+	</head>
+	<body ng-app="myApp">
+		<div ng-controller="myController">
+			<table border="1" cellpadding="0" cellspacing="0">
+				<thead>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+				</thead>
+				<tbody>
+					<tr ng-class-odd="'odd'" ng-class-even="'even'" ng-repeat=' v in data'>
+						<td>{{v.name}}</td>
+						<td>{{v.age}}</td>
+						<td>{{v.sex}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+	<script>
+		var app=angular.module('myApp',[]);
+		app.controller('myController',['$scope','$http',function($scope,$http){
+			$http({
+				method:'GET',
+				url:'student1.json',
+				params:{id:1}
+			})
+			.success(function(data,state,headers,config){
+				$scope.data= data;
+			})
+			.error(function(data){
+				alert(data);
+			})
+		}]);
+	</script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>事件指令</title>
+	</head>
+	<body>
+		<div ng-controller="test">
+			<input type="checkbox" ng-model = "aaa">
+			<select>
+				<option>1111111111</option>
+				<option ng-selected="aaa">22222222222</option>
+			</select><br />
+			<input type="text" ng-change="bbb='chunzhen'" ng-model="bbb">{{bbb}}<br>
+			<input type="text" ng-copy="ccc=true"  value="11111111">{{ccc}}<br>
+			<input type="text" ng-cut="ddd=true"  value="22222222">{{ddd}}<br>
+			<input type="text" ng-paste="eee=true"  value="33333333">{{eee}}<br>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',function($scope){
+				$scope.bbb = 'aaaaa';
+				
+			}]);
+			
+		</script>
+	</body>
+</html>

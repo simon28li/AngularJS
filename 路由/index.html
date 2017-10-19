@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/lib/angular.min.js" ></script>
+		<script type="text/javascript" src="js/lib/angular-route.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',['ngRoute']);
+		</script>
+		<script type="text/javascript" src="js/route/route.js" ></script>
+		<script type="text/javascript" src="js/controller/indexCtrl.js" ></script>
+	</head>
+	<body>
+		<div ng-controller="indexCtrl" id="parent" >
+			<div id="header">
+				<!--<a href="#index">首页</a>
+				<a href="#student">学员</a>
+				<a href="#course">课程</a>-->
+				<a href="" ng-click="$location.path('index')">首页</a>
+				<a href="" ng-click="$location.path('student')">学员</a>
+				<a href="" ng-click="$location.path('course')">课程</a>
+				<a href="" ng-click="$location.path('test/1')">传参测试1</a>
+				<a href="" ng-click="$location.path('test/2')">传参测试2</a>
+			</div>
+			
+			<div id="content" ng-view></div><!--ng-view作用：显示路由的页面的信息-->
+		</div>	
+		
+		<script type="text/javascript" src="js/controller/studentCtrl.js" ></script>
+	</body>
+</html>

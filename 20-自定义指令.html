@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义指令</title>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			<hello></hello>
+			<div hello></div>
+			<div class="hello"></div>
+			<!-- directive:hello --><!--注释方式调用时，与注释的横杠间要写空格-->
+			<hr>
+			<my-hello></my-hello>
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			//自定义指令
+			m1.directive('hello',function(){
+				return {
+					restrict:'EACM',  //restrict 设置自定义指令的调用方式  ，E 代表使用标签进行调用
+					//A 使用属性来进行调用 , C 使用class来进行调用 ,M  使用注释的方式进行调用   
+					replace:true,//将模板内容替换掉 自定义的标签
+					template:'<h2>hello angular</h2>'//调用自定义指令后的显示内容
+				}
+			});
+			//自定义指令的名称为驼峰式写法时， html中调用需要使用-连接两个单词
+			m1.directive('myHello',function(){
+				return {
+					restrict:'EACM',  //restrict 设置自定义指令的调用方式  ，E 代表使用标签进行调用
+					//A 使用属性来进行调用 , C 使用class来进行调用 ,M  使用注释的方式进行调用   
+					replace:true,//将模板内容替换掉 自定义的标签
+					template:'<h3>hello -lili</h3>'//调用自定义指令后的显示内容
+				}
+			});
+			
+			m1.controller('test',['$scope',function($scope){
+				
+			}]);
+			
+			
+		</script>
+		
+	</body>
+</html>

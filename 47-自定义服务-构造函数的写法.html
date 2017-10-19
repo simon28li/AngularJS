@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义服务</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+		/*
+			var m1 = angular.module('module1',[]);
+			//创建自定义服务   面向对象的方式
+			m1.service('myService',FnService);
+			function FnService(){
+				this.name = "hello";
+			}
+			FnService.prototype.age = 20;
+			
+			//自定义服务的调用有三个点：1.服务是已经定义好的   2.自定义服务的依赖顺序必须写在系统服务的后面 3.自定义服务起名时不需要加$
+			var m2 = angular.module('myApp',['module1']);
+			m2.controller('test',['$scope','myService',function($scope,myService){
+				console.log(myService.age);
+				console.log(myService.name);
+			}]);
+		*/
+		//设置常量
+			var m1 = angular.module('myApp',[]);
+			//定义一个常量的服务
+			m1.constant('myS','hello-angular');
+			m1.value('myS1','hi-test');
+			//constant 和 value 在定义常量时的区别,constant，可以进行配置，但是  value不可以配置 
+			/*
+			m1.config(['myS',function(myS){
+				
+				console.log(myS);
+			}]);*/
+			/*
+			m1.config(['myS1',function(myS1){
+				
+				console.log(myS);
+			}]);
+			*/
+			m1.controller('test',['$scope','myS','myS1',function($scope,myS,myS1){
+				console.log(myS);
+				console.log(myS1);
+			}]);
+		</script>
+		
+	</body>
+</html>

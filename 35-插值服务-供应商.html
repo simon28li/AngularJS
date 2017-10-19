@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>插值服务-供应商</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			<input type="text" ng-model="name" />
+			<textarea ng-model = "body">
+				
+			</textarea>
+			<p>%%newName%%</p>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			//g供应商，作用：更改某些服务单位基本设置
+			m1.config(['$interpolateProvider',function($interpolateProvider){
+				$interpolateProvider.startSymbol('%%') ;//配置表达式开始的符号
+				$interpolateProvider.endSymbol('%%') ;//配置表达式结束的符号
+				
+			}]);
+			
+			m1.controller('test',['$scope','$interpolate',function($scope,$interpolate){
+				//监听
+				$scope.$watch('body',function(newVal,oldVal){
+					//console.log(oldVal);
+					//console.log(newVal);
+					if(newVal){
+						var temp = $interpolate(newVal);//对变量进行解析
+						//console.log(temp({name:$scope.name}));
+						$scope.newName = temp({name:$scope.name});
+					}
+				});
+			}]);	
+		</script>
+		
+	</body>
+</html>

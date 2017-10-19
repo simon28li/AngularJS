@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义服务模块间通信</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script type="text/javascript" src="serviceP.js" ></script>
+		<script>
+			m1.config(['myServiceProvider',function(myServiceProvider){
+				myServiceProvider.name = 'hi ';
+				
+			}]);
+			
+			//自定义服务的调用有三个点：1.服务是已经定义好的   2.自定义服务的依赖顺序必须写在系统服务的后面 3.自定义服务起名时不需要加$
+			var m2 = angular.module('myApp',['module1']);
+			m2.controller('test',['$scope','myService',function($scope,myService){
+				console.log(myService.show());
+				console.log(myService.name);
+			}]);	
+		</script>
+		
+	</body>
+</html>

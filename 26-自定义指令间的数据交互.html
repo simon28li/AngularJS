@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义指令</title>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			<hello><my-hello></my-hello></hello>
+			
+			
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			//自定义指令
+			m1.directive('hello',function(){
+				return {
+					restrict:'EACM',  
+					replace:true,//将模板内容替换掉 自定义的标签
+					transclude:true,//可以解析hello自定指令中的嵌套指令
+					template:'<h2>hello angular<div ng-transclude></div></h2>'//调用自定义指令后的显示内容
+				}
+			});
+			//自定义指令的名称为驼峰式写法时， html中调用需要使用-连接两个单词
+			m1.directive('myHello',function(){
+				return {
+					restrict:'EACM', 
+					replace:true,
+					template:'<h3>hello -lili</h3>'
+				}
+			});
+			
+			m1.controller('test',['$scope',function($scope){
+				
+			}]);
+			
+			
+		</script>
+		
+	</body>
+</html>

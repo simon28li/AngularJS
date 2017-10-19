@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义的过滤器</title>
+	</head>
+	<body>
+		<div ng-controller="test">{{name}}-{{upstr}}</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			//自定义的过滤器   将首字母大写，并且截取N个字符
+			m1.filter('firstUpper',function(){
+				return function(str,num){
+					console.log(str+'|||'+num);
+					return str.charAt(0).toUpperCase() + str.substring(1,num);
+					
+				}
+				
+			});
+			m1.controller('test',['$scope','$filter',function($scope,$filter){
+				$scope.name = '张三';
+				$scope.upstr = $filter('firstUpper')('helloworld',3);
+				
+			}]);
+			
+		</script>
+	</body>
+</html>

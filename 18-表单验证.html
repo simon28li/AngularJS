@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>表单验证</title>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			<!--
+			<form novalidate name="myForm">
+				<input type ="email" name="myEmail" ng-model="myEmail"/>
+				<div>
+					$valid验证不通过 false --{{myForm.myEmail.$valid}}<br>
+					$invalid验证通过 false --{{myForm.myEmail.$invalid}}<br>
+					$pristine  验证值没有修改为true -- {{myForm.myEmail.$pristine}}<br>
+					$dirty  输入值之后是true      -- {{myForm.myEmail.$dirty}}<br>
+					
+				</div>
+				<div>有错误是显示true---{{myForm.myEmail.$error}}</div>
+			</form>
+			-->
+			<form novalidate name="myForm">
+				<input type ="text" name="myText" ng-model="myText" required="required" ng-minlength="5" 
+					ng-pattern="/[a-zA-Z]/"/>
+				<div>
+					$valid验证不通过 false --{{myForm.myText.$valid}}<br>
+					$invalid验证通过 false --{{myForm.myText.$invalid}}<br>
+					$pristine  验证值没有修改为true -- {{myForm.myText.$pristine}}<br>
+					$dirty  输入值之后是true      -- {{myForm.myText.$dirty}}<br>
+					
+				</div>
+				<div>有错误是显示true---{{myForm.myText.$error}}</div>
+			</form>
+		</div>
+		
+		
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+		/*表单验证不通过时，表单内容默认会清空*/
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',function($scope){
+				$scope.myEmail = 'aas@162.com';
+				
+			}]);
+			
+			
+		</script>
+		
+	</body>
+</html>

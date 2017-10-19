@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title>购物车实例</title>
+	</head>
+	<body>
+		<div ng-controller = "test">
+			<p>价格：<input type="text" ng-model="iphone.money"/></p>
+			<p>个数：<input type="text" ng-model="iphone.num"/></p>
+			<p>运费：{{iphone.fre|currency:'￥'}}</p>
+			<p>费用：{{sum()|currency:'￥'}}</p>
+		    <p ng-bind-template="费用：{{iphone.fre|currency:'￥'}}">费用：</p>
+		</div>
+		
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			function test($scope){
+				$scope.iphone={
+					money:6000,
+					num:1,
+					fre:10
+				};
+				$scope.sum = function(){
+					return $scope.iphone.money * $scope.iphone.num + $scope.iphone.fre;
+				}
+				//监听单个数据,当数据发生改变时触发  参数 ： 监听的对象、监听的回调
+				/*$scope.$watch('iphone.money',function(){
+					console.log(1);
+				});*/
+				//监听多个对象，监听整个json对象 ,多加一个参数  第三个参数设置为true，表示深度监听
+				/*$scope.$watch('iphone',function(){
+					console.log(2);
+				},true);*/
+				$scope.$watch($scope.sum,function(newVal,oldVal){
+					console.log(oldVal);
+					console.log(newVal);
+					$scope.iphone.fre = newVal >=10000?0:10;
+				});
+				
+			}
+			
+		</script>
+		<script>alert(1)</script>
+	</body>
+</html>

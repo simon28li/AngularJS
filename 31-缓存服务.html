@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>缓存</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			
+		</div>
+		
+		<div ng-controller="test2" id="sibings" >
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope','$cacheFactory',function($scope,$cacheFactory){
+				//缓存信息的设置、获取、删除
+				/*
+				var cache = $cacheFactory('myCache');
+				cache.put('name','hello');
+				cache.put('age',20);
+				console.log(cache.info());
+				cache.remove('name');
+				console.log(cache.info());
+				console.log(cache.get('age'));
+				*/
+				var myCache = $cacheFactory('myCache1',{capacity:10});//capacity 设置缓存长度
+				myCache.put('name','hello');
+				myCache.put('age',20);
+				myCache.put('job','IT');
+				console.log(myCache.info());
+			console.log(myCache.get('age'));
+				
+			}]);	
+			m1.controller('test2',function($scope,$cacheFactory){
+				var Cache = $cacheFactory('myCache1',{capacity:10});//capacity 设置缓存长度
+			
+				console.log(Cache.info());
+				console.log(Cache.get('age'));
+				
+			})
+		</script>
+		
+	</body>
+</html>

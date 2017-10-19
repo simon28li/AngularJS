@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>disbled效果</title>
+	</head>
+	<body>
+		<div ng-controller="test">
+			<input type="button" value="{{text}}" ng-disabled="isAbled"><br>
+			<!-- 对表单项显示内容的优化  当网速慢时，angular 还没有解析{{}}的时候，希望能够隐藏-->
+			<input type="text" ng-value="text" ng-readonly="isAbled" /><br>
+			<input type="checkbox" value="{{text}}" ng-checked="isAbled" /><br>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope','$interval',function($scope,$interval){
+				$scope.text = 5;//初始值
+				$scope.isAbled = true;
+				//定时器
+				var timer = $interval(function(){
+					$scope.text--;
+					if($scope.text == 0){
+						$interval.cancel(timer);
+						$scope.isAbled = false;
+						//alert($scope.isAbled);
+						$scope.text = '可以点击';
+					}
+					
+				},1000);
+				
+			}]);
+			
+		</script>
+		<script>alert(1);</script>
+	</body>
+</html>

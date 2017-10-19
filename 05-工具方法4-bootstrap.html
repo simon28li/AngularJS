@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<title>购物车实例</title>
+	</head>
+	<body>
+		<div  ng-controller = "test"><!--ng-app="myApp1"-->
+			{{name}}
+		</div>
+		<div  ng-controller = "test2"><!--ng-app="myApp2"-->
+			{{name}}
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp1',[]);
+			m1.controller('test',['$scope',function($scope){
+				$scope.name = 'test111';
+			}]);
+			var m2 = angular.module('myApp2',[]);
+			m2.controller('test2',['$scope',function($scope){
+				$scope.name = '222222222222222';
+			}]);
+			
+			//angular.bootstrap  可以动态的初始化
+			document.onclick = function(){
+				var aDiv = document.getElementsByTagName('div');
+				angular.bootstrap(aDiv[0],['myApp1']);
+				angular.bootstrap(aDiv[1],['myApp2']);
+			}
+			
+			
+			
+		</script>
+	</body>
+</html>

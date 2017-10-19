@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>数据显示优化</title>
+	</head>
+	<body>
+		<div ng-controller="test">
+			{{name}}双括号在网速慢的时候会显示出来<br>
+			1.ng-bind 可以避免显示{{}}，当{{}}没有解析时，不会显示出来 <br>
+			<p ng-bind = "name "></p>
+			2.想要显示多个 变量时ng-bind-template
+			<p ng-bind-template = "{{name}}-{{age}}"></p>
+			3.显示标签   ng-bind-html 可以解析html标签 ，使用时，需要依赖注入  ngSanitize<br>
+			<div>{{str}}</div>
+			<div ng-bind-html="str"></div>
+			4.想使用表达式的写法，但不显示双括号  ng-cloak<br>
+			<div ng-cloak>{{name}}</div>
+			5.对表达式不解析  ng-non-bindable<br>
+			<div ng-non-bindable>{{name}}</div>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script type="text/javascript" src="js/angular-sanitize.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',['ngSanitize']);
+			m1.controller('test',['$scope',function($scope){
+				$scope.name = 'teli';
+				$scope.age = 30;
+				$scope.str = '<h1>hello world</h1>';
+			}]);
+			
+		</script>
+		<script>alert(1);</script>
+	</body>
+</html>

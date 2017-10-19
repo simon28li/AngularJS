@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>dom的相关操作</title>
+		<style>
+			.d1{width:100px;height: 100px; border:1px solid red;}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="test">
+			1.ng-show  ng-hide 对css样式进行操作  display :block    none<br>
+			<div ng-show="true">我是天使</div>
+			<div ng-hide="true">我怕谁</div>
+			2.ng-if  对dom节点进行添加和删除<br>
+			
+			<div class="d1" ng-click="hide()" ng-if="flag">aaaaa</div>
+			3.ng-switch <br>
+			<div ng-switch on = "flag">
+				<p ng-switch-default>默认效果</p>
+				<p ng-switch-when="false">我是点击效果</p>
+			</div>
+			4.ng-open  使用在details 标签里 <br>
+			<details ng-open="true">
+				<summary>天地一号</summary>
+				<p>我是一瓶醋</p>
+			</details>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',function($scope){
+				$scope.flag = true;
+				$scope.hide = function(){
+					$scope.flag  = false;
+					
+				}
+			}]);
+			
+		</script>
+		
+	</body>
+</html>

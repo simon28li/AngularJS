@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>兄弟节点间的遍历</title>
+	</head>
+	<body>
+		<div ng-controller="test">
+			<div ng-repeat-start="stuV in stu ">{{stuV.name}}</div>
+			<p>同学的年龄</p>
+			<p>{{stuV.age}}</p>
+			<hr ng-repeat-end>
+			<div>test</div>
+		</div>
+		
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			
+			m1.controller('test',['$scope','$filter',function($scope,$filter){
+				$scope.stu = [
+					{"name":"lili","age":"20"},
+					{"name":"dalin","age":"21"},
+					{"name":"xiaoshan","age":"19"},
+				];
+			}]);
+			
+		</script>
+	</body>
+</html>

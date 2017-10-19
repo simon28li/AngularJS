@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>下拉列表</title>
+	
+	</head>
+	<body>
+		
+		<div ng-controller="test" >
+			<select ng-model="oldColor" ng-options="color.name as color.id for color in colors">
+				
+			</select>
+			
+			我今天穿了{{oldColor}}颜色的衣服
+			<!--阻止浏览器的默认验证效果-->
+			<form ><input type="email" /></form>
+		</div>
+		
+		
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',function($scope){
+				$scope.oldColor = '';
+				//下拉列表的数据
+				$scope.colors = [
+				{'name':'red','id':'1'},
+				{'name':'yellow','id':'2'},
+				{'name':'white','id':'3'},
+				
+				];
+				
+			}]);
+			
+			
+		</script>
+		
+	</body>
+</html>

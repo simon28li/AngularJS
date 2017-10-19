@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title>双向数据绑定</title>
+	</head>
+	<body>
+		<div ng-controller="test">{{name}}</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+		//$timeout定时器服务
+			function test($scope,$timeout){
+				$scope.name = "hello world";
+				//使用定时器，2秒钟后更改成hi world
+				/*
+				setTimeout(function(){
+					
+					$scope.name = "hi world";
+					alert($scope.name);
+				},2000);*/
+				
+				$timeout(function(){
+					$scope.name = "hi world";
+				},2000);
+			}
+		</script>
+	</body>
+</html>

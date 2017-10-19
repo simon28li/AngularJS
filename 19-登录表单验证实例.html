@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>登录表单验证实例</title>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			<form novalidate name="nForm" action="#" type="post">
+				<div>
+					<label >用户名：</label>
+					<input type="text" name="nText" ng-model="regText.name" required="required"
+					ng-pattern="/^[a-zA-Z]*$/" ng-minlength="6"	
+					ng-blur="change('regText',nForm.nText.$error)"/>
+					<span ng-repeat="re in regText.regList|filter:regText.regVal">{{re.tips}}</span>
+				</div>
+				<div>
+					<label >密码：</label>
+					<input type="password" name="nPassword" ng-model="regPassword.name" required="required"
+					ng-pattern="/[a-zA-Z0-9_]/" ng-minlength="6"	
+					ng-blur="change('regPassword',nForm.nPassword.$error)"/>
+					<span ng-repeat="re in regPassword.regList|filter:regPassword.regVal">{{re.tips}}</span>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+		/*表单验证不通过时，表单内容默认会清空*/
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',function($scope){
+				//定义报错的显示
+				$scope.regText = {
+					regVal:'default',//验证的默认显示值
+					regList:[
+						{'name':'default','tips':'请输入用户名'},
+						{'name':'required','tips':'用户名不能为空'},
+						{'name':'pattern','tips':'用户名必须是字母'},
+						{'name':'minlength','tips':'用户名长度需要大于等于6'},
+						{'name':'pass','tips':'√'},
+					]
+				};
+				//密码
+				$scope.regPassword = {
+					regVal:'default',//验证的默认显示值
+					regList:[
+						{'name':'default','tips':'请输入密码'},
+						{'name':'required','tips':'密码不能为空'},
+						{'name':'pattern','tips':'密码必须是数字字母下划线'},
+						{'name':'minlength','tips':'密码长度需要大于等于6'},
+						{'name':'pass','tips':'√'},
+					]
+				};
+				
+				//报错的函数
+				$scope.change = function(reg,err){
+					//console.log(reg);
+					//console.log(err);
+					//把报错信息的key值赋值给 regText.regVal
+					for(var attr in err){
+						if(err[attr] == true){
+							$scope[reg].regVal = attr;
+							return ;
+						}	
+					}
+					//将pass赋值给regText.regVal ，表示验证成功
+					$scope[reg].regVal  = 'pass';
+				}
+			}]);
+			
+			
+		</script>
+		
+	</body>
+</html>

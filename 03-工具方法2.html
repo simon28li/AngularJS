@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title>工具方法1</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			//angular.isArray          判断是否为数组
+			var a = [];
+			var b = {};
+			//console.log(angular.isArray(a));
+			//console.log(angular.isArray(b));
+			//angular.isDate           判断是不是时间对象
+			var t = new Date();
+			//console.log(angular.isDate(t));
+			//console.log(angular.isDate(b));
+			
+			//angular.isDefined      判断元素是否存在
+			//console.log(angular.isDefined(b.name));
+			
+			//angular.isUndefined  判断元素是否不存在
+			//console.log(angular.isUndefined(b.name));
+			
+			//angular.isFunction     判断是否是函数
+			var e = function(){}
+			//console.log(angular.isFunction(e));
+			
+			//angular.isNumber     判断是否是数字
+			var num = 123;
+			//console.log(angular.isNumber(num));
+
+			//angular.isObject        判断是否为对象
+			//console.log(angular.isObject(a));
+			//console.log(angular.isObject(b));
+			//console.log(angular.isObject('aaaaaaaaaaaa'));
+			//angular.isString         判断是否为字符串
+			//console.log(angular.isString('aaaaaaaaaaaa'));
+			
+			//angular.isElement      判断是否为一个元素
+			
+			console.log(angular.isElement(a));
+			console.log(angular.isElement(document.body));
+		</script>
+	</body>
+</html>

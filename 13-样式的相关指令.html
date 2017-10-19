@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>样式的相关指令</title>
+		<style>
+			.red{background-color: red;}
+			.yellow{color: yellow; border:1px solid blue;}
+			
+		</style>
+	</head>
+	<body>
+		<div ng-controller="test">
+			<h1 ng-class="{red:true,yellow:true}">{{name}}</h1>
+			<h2 ng-class="{{myClass}}">{{name}}</h2>
+			<h3 ng-style="{color:'blue'}">{{name}}</h3>
+			<h3 ng-style="{{myStyle}}">{{name}}</h3>
+			<a href="{{url}}">百度</a><br>
+			<a ng-href="{{url}}">百度</a><br>
+			<a ng-attr-href="{{url}}">百度</a><br>
+			<img src="{{img}}" /><br>
+			<img ng-src="{{img}}"/><br>
+			<img ng-attr-src="{{img}}"/><br>
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',function($scope){
+				$scope.name = 'teli';
+				$scope.myClass = "{red:true}";
+				$scope.myStyle = "{color:'orange'}";
+				$scope.url = "http://www.baidu.com";
+				$scope.img = "img/1.jpg";
+			}]);
+			
+		</script>
+		<script>alert(1);</script>
+	</body>
+</html>

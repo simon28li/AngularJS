@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app>
+	<head>
+		<meta charset="UTF-8">
+		<title>工具方法1</title>
+	</head>
+	<body>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			//1.angular.bind 改变指针的指向
+			function test(){
+				var name = "hello";
+				console.log(this);
+			}
+			//test();
+			//$.proxy()   可以改变this的指针指向
+			//angular.bind(document,test)();
+			
+			//2.angular.copy   a赋值给b ,a 赋值给c
+			var a = {"name":"lili"};
+			var b = {"age":"20"};
+			var c = angular.copy(a,b);
+			//console.log(a);//   name 
+			//console.log(b);//     name
+			//console.log(c);//     name
+			//2.angular.extend  继承
+			var a = {"name":"lili"};
+			var b = {"age":"20"};
+			var c = angular.extend(a,b);//a继承了b,在赋值给c
+			console.log(a);//   name
+			console.log(b);//     age
+			console.log(c);//     name age 
+			
+		</script>
+	</body>
+</html>

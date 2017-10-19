@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>event传播</title>
+		
+	</head>
+	<body>
+		<!--angular js 虽然 controller嵌套了，但是生成了三份独立的对象，是等同的关系，默认行为不会冒泡，不会影响到父级或者子级节点-->
+		<div ng-controller="indexCtrl" id="parent" >
+			1- {{count}}
+			<div ng-controller="indexCtrl" ng-click="$emit('myEvent')"><!--$broadcast 向下传播--><!--$emit向上传播-->
+				2-{{count}}
+				<div ng-controller="indexCtrl">
+					3-{{count}}
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		
+		<script>
+		
+			var m1 = angular.module('myApp',[]);
+			
+			
+			//定义主页的控制器
+			m1.controller('indexCtrl',['$scope',function($scope){
+				$scope.count = 0;//初始值
+				$scope.$on('myEvent',function(event){
+					$scope.count++;
+					//当前作用域和目标作用域的比较
+					console.log(event.targetScope == event.currentScope);
+					console.log(event.name);
+					//阻止冒泡传播
+					event.stopPropagation();
+
+				});
+			}]);
+			
+		
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>log服务</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.config(['$logProvider',function($logProvider){
+				//配置 debug信息是显示还是不显示    debug信息在版本发布时都是不显示的
+				$logProvider.debugEnabled(false);
+				
+			}]);
+			m1.controller('test',['$scope','$log',function($scope,$log){
+				$log.debug('hello');
+				
+			}]);	
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义指令-选项卡-隔离作用域</title>
+		<style>
+			#div1  div,#div2 div{width:200px;height:200px; border:1px solid blue; display:none;}
+			#div1 input.active,#div2 input.active{background: green;}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			<my-tab my-id="div1" my-name="name" my-fn = "show(num)"></my-tab>
+			<hr>
+			<my-tab my-id="div2" my-name="name" my-fn = "show(num)"></my-tab>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			//选项卡的自定义指令
+			m1.directive('myTab',function(){
+				return {
+					restrict:'EA',  //restrict 设置自定义指令的调用方式  ，E 代表使用标签进行调用(常用)
+					//A 使用属性来进行调用 (常用), C 使用class来进行调用 ,M  使用注释的方式进行调用   
+					scope:{//隔离作用域
+						myId:'@',//绑定的是普通的字符串
+						myName:'=',//myId:'@aaa'//如果  名称不一致时，必须在@后面表明名称//变量的绑定
+						myFn:'&'//函数的绑定
+					},
+					controller:['$scope',function($scope){
+						$scope.name="内部变量";
+						//模板中共享的数据都写在这里， 
+					}],
+					replace:true,//将模板内容替换掉 自定义的标签
+					templateUrl:'temp3.html'//添加模板文件
+				}
+			});
+			m1.controller('test',['$scope',function($scope){
+				$scope.name = 'hello';
+				$scope.show = function(n){
+					alert(n);
+					
+				}
+			}]);
+			
+			//默认情况下，模板文件是一个共享的作用域
+			//独立的作用的实现？
+		</script>
+		
+	</body>
+</html>

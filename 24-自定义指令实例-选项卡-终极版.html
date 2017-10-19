@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义指令-选项卡-隔离作用域</title>
+		<style>
+			#div1  div,#div2 div{width:200px;height:200px; border:1px solid blue; display:none;}
+			#div1 input.active,#div2 input.active{background: green;}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			<my-tab my-id="div1" my-data="data1"></my-tab>
+			<hr>
+			<my-tab my-id="div2" my-data="data2"></my-tab>
+		</div>
+		<script type="text/javascript" src="js/jquery203.js" ></script>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			//选项卡的自定义指令
+			m1.directive('myTab',function(){
+				return {
+					restrict:'EA',  //restrict 设置自定义指令的调用方式  ，E 代表使用标签进行调用(常用)
+					//A 使用属性来进行调用 (常用), C 使用class来进行调用 ,M  使用注释的方式进行调用   
+					scope:{//隔离作用域
+						myId:'@',//绑定的是普通的字符串
+						myData:'='
+						
+					},
+					//Dom操作需要在link中进行设置
+					link:function(scope,element,attr){
+						//console.log(scope);
+						//console.log(element);
+						//console.log(attr);
+						//委托 delegate
+						element.delegate('input','click',function(){
+							var key = $(this).index();
+							//console.log(key);
+							$(this).attr('class','active').siblings('input').attr('class','');
+							$(this).siblings('div').css('display','none');
+							$(this).siblings('div').eq(key).css('display','block');
+						});
+					},
+					replace:true,//将模板内容替换掉 自定义的标签
+					templateUrl:'temp4.html'//添加模板文件
+				}
+			});
+			m1.controller('test',['$scope',function($scope){
+				//定义不同选项卡的内容
+				$scope.data1 = [
+					{"title":"数学","content":"1+1=2"},
+					{"title":"语文","content":"写一篇小雪的文章"},
+					{"title":"英语","content":"hello world"},
+				];
+				$scope.data2 = [
+					{"title":"化学","content":"氧化实验"},
+					{"title":"物理","content":"自由落体运动"}
+				];
+			}]);
+			
+			//默认情况下，模板文件是一个共享的作用域
+			//独立的作用的实现？
+		</script>
+		
+	</body>
+</html>

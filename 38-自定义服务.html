@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义服务</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+		
+			//构造函数
+			/*
+			function test(name,age){
+				this.name = name;
+				this.age = age;
+				
+			}
+			test.prototype.love = 'zhangsan';
+			test.prototype.show = function(){ alert('hello');};
+			var myTest = new test('李四',20);
+			myTest.show();
+			*/
+			
+		
+			var m1 = angular.module('myApp',[]);
+			//创建自定义服务
+			m1.factory('myService',function(){
+				return{
+					name:'hello',
+					show:function(){
+						return this.name +'angular';
+					}
+				}
+			});
+			//自定义服务的调用有三个点：1.服务是已经定义好的   2.自定义服务的依赖顺序必须写在系统服务的后面 3.自定义服务起名时不需要加$
+			m1.controller('test',['$scope','myService',function($scope,myService){
+				console.log(myService.show());
+				console.log(myService.name);
+			}]);	
+		</script>
+		
+	</body>
+</html>

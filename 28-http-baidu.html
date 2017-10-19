@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>http服务-百度搜索效果</title>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			<input type="text" ng-model = "name" ng-blur="change(name)" />
+			<input type="button" value="搜索" ng-click="change(name)">
+			<ul>
+				<li ng-repeat="v in data">歌手：{{v.author}}--曲目：{{v.title}}--{{v.album_title}}</li>
+			</ul>
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			/*
+			 1.看一下百度的http请求，将地址  复制， 更改
+			 2.点击搜索按钮，先搜索触默认数据
+			 3.再更改为文本框数据的搜索
+			 4.按键弹起时就进行搜索
+			 5.优化：当输入快时，我们不采用多次搜索,适当的减少了http请求的次数
+			 * */
+		
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope','$http','$timeout',function($scope,$http,$timeout){
+				$scope.data = [];//保存百度搜索的结果
+				var timer = null;//保存定时器
+				$scope.change = function(name){
+					$timeout.cancel(timer);
+					timer = $timeout(function(){
+						//jsonp跨域调用
+						$http({
+							method:'JSONP',
+							url:'http://tingapi.ting.baidu.com/v1/restserver/ting/?method=baidu.ting.search.common&query='+name+'&callback=JSON_CALLBACK'
+//							url:'https://api.asilu.com/weather/?city='+name+'&callback=JSON_CALLBACK'
+//							url:'https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd='+name+'&cb=JSON_CALLBACK'
+						}).success(function(data,state,headers,config){
+							
+							
+							$scope.data = data.song_list;
+							console.log($scope.data.song_list);
+						}).error(function(data){
+							//console.log(data);
+							alert(1);
+						});
+					},50);
+				}	
+			}]);	
+		</script>
+		
+	</body>
+</html>

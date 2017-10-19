@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>http服务</title>
+	</head>
+	<body>
+		<div ng-controller="test" >
+			姓名：{{data.name}}-年龄：{{data.age}}
+			
+			<ul>
+				<li ng-repeat = "v in data">{{v.name}} -- {{v.age}}</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script type="text/javascript" src="js/angular-resource.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',['ngResource']);
+			m1.controller('test',['$scope','$resource','$http',function($scope,$resource,$http){
+				 //单条数据
+//				var objRe = $resource('httpdata.json');
+//				console.log(objRe);
+//				$scope.data = objRe.get();//只能解析单条的json数据，不能解析数组
+//				
+//				console.log($scope.data);
+				
+				//解析数组
+//				
+//				var objRe = $resource('student.json');
+//				//console.log(objRe);
+//				$scope.data = objRe.query();//只能解析单条的json数据，不能解析数组
+//				
+//				console.log($scope.data);
+				
+				//传参$resource(url,{url参数},{自定义方法})
+
+				//	url: 必填,资源的基础url
+					
+				//	url中带有 ':' 项的是根据第二个参数来进行配置的. 
+					
+				//	url参数: 选填,配置url中的带有 ':' 项的参数
+				var objRe = $resource(':name.:bbb',{bbb:'json'});
+				$scope.data = objRe.query({name:'student1'},function(){},function(){});
+				
+				
+//				$http({
+//					method:'GET',
+//					url:'student.json'
+//				})
+//				.success(function(data,state,headers,config){
+//					//console.log(data);
+//					//console.log(state);
+//					//console.log(headers);
+//					//console.log(config);
+//					$scope.data = data;
+//				})
+//				.error(function(data){console.log(data);});//假设http服务没有正确相应，就会返回报错信息
+//				
+//				$http.get('student.json').success(function(data,state,headers,config){$scope.data = data;});
+				
+			}]);
+			
+			
+		</script>
+		
+	</body>
+</html>

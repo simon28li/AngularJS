@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>延迟服务</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope','$q',function($scope,$q){
+				var dfd = $q.defer();//创建延迟对象
+				function show(){
+					
+					setTimeout(function(){
+						dfd.resolve({
+							a:'success'
+						});//成功时触发
+						//dfd.reject();
+					},2000);
+					return dfd.promise;//延迟返回的promise对象
+				}
+				//延迟对象的调用方式 使用then  ,有两个参数   ，第一个参数   成功调用，第二个参数是失败调用
+				show().then(function(re){
+					console.log(re);
+					alert('成功');      
+				},function(){
+					alert('失败');
+					
+				});
+			}]);	
+		</script>
+		
+	</body>
+</html>

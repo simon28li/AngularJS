@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>自定义服务-随机数-升级版</title>
+		
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			//factory写出来的自定义服务是不允许  尽心config配置的
+			
+			//创建自定义服务
+			/*
+			m1.factory('myRandom',function(){
+				return{
+					show:function(num1,num2){
+						return Math.random()*(num2-num1) + num1;
+					}
+				}
+			});
+			*/
+			//添加配置项   当配置项等于真的时候会取整，假的时候不取整
+			m1.provider('myRandom',function(){
+				return {
+					bolInt:false,
+					//是为了provider的配置
+					int:function(argBol){
+						if(argBol){
+							this.bolInt = true;
+						}else{
+							this.bolInt = false;
+						}
+					},
+					$get:function(){
+						var This = this;
+						return {
+							show:function(num1,num2){
+								console.log(This.bolInt);
+								
+								return   This.bolInt? Math.round(Math.random()*(num2-num1) + num1): Math.random()*(num2-num1) + num1;
+							}
+
+						}
+					}
+				}
+			});
+			
+			//对自定义的随机数服务进行配置
+			m1.config(['myRandomProvider',function(myRandomProvider){
+				myRandomProvider.int(true);
+			}]);
+			
+			//自定义服务的调用有三个点：1.服务是已经定义好的   2.自定义服务的依赖顺序必须写在系统服务的后面 3.自定义服务起名时不需要加$
+			m1.controller('test',['$scope','myRandom',function($scope,myRandom){
+				console.log(myRandom.show(3,30));
+			}]);	
+		</script>
+		
+	</body>
+</html>

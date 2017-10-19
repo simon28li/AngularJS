@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>指令的扩展</title>
+	
+	</head>
+	<body>
+		1.ng-init  这种初始化方式一般不推荐使用<br>
+		<!--
+		<div ng-controller="test" ng-init="text = 'hi'">
+			1.ng-init  这种初始化方式一般不推荐使用<br>
+			{{text}}
+		</div>
+		-->
+		2.打印二维数组的下标的时候可以使用<br>
+		<!--
+		<div ng-controller="test">
+			<div ng-repeat="arrOut in myArr" ng-init="outerIndex = $index">
+				<div ng-repeat="arrIn in arrOut">
+					<p>{{arrIn}}-外层下标{{outerIndex}}-内层下标{{$index}}</p>
+				</div>
+			</div>
+		</div>
+		-->
+		3.ng-include 引入一个模板 需要双引号中间加单引号 然后再引入文件名 <br>
+		<div ng-controller="test" ng-include="'include.html'">
+			
+		</div>
+		
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope',function($scope){
+				$scope.myArr = [['a','b'],['c','d']];
+			}]);
+			
+		</script>
+		
+	</body>
+</html>

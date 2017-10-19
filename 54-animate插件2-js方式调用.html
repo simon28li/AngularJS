@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>event传播</title>
+		<style>
+			.box{width:200px;height:200px; border:1px solid red; background: blue;}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="indexCtrl" id="parent" >
+			<input type="checkbox" ng-model="bBtn">
+			<div ng-show="bBtn" class="box">test</div>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script type="text/javascript" src="js/angular-animate.min.js" ></script>
+		<script type="text/javascript" src="js/jquery203.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',['ngAnimate']);
+			m1.animation('.box',function(){
+				return {
+					addClass:function(element,sClass,done){
+						console.log(sClass);
+						$(element).animate({width:0,height:0},2000,done);
+					},
+					removeClass:function(element,sClass,done){
+						$(element).css({width:0,height:0});
+						$(element).animate({width:200,height:200},2000,done);
+					}
+					
+				}
+				
+			});
+			
+			
+			//定义主页的控制器
+			m1.controller('indexCtrl',['$scope',function($scope){
+				$scope.bBtn = true;
+			}]);
+			
+		
+		</script>
+		
+	</body>
+</html>

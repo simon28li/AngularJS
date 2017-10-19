@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<meta charset="UTF-8">
+		<title>锚点跳转</title>
+		<style>
+			#parent ul{width:200px; position: fixed; top:0;right:0;}
+			#parent ul li{ list-style: none; padding:10px ; width: 150px; height: 30px; border:1px solid yellow;
+			background: blue;}
+			#parent div{width: 300px; height: 500px; border: 1px solid green;}
+		</style>
+	</head>
+	<body>
+		<div ng-controller="test" id="parent" >
+			<ul>
+				<li ng-repeat="id in [1,2,3,4,5]" ng-click="change('div'+id)"> {{id}} - qqqqqqqqq</li>
+			</ul>
+			<div ng-repeat="id in [1,2,3,4,5]" ng-attr-id="div{{id}}">{{id}}</div>
+		</div>
+		<script type="text/javascript" src="js/angular.min.js" ></script>
+		<script>
+			var m1 = angular.module('myApp',[]);
+			m1.controller('test',['$scope','$location','$anchorScroll',function($scope,$location,$anchorScroll){
+				$scope.change = function(id){
+					//设置hash值
+					$location.hash(id);
+					//当hash值不发生变化时，还想滚动 ，加上下面的一句
+					$anchorScroll();
+				}
+				
+				
+			}]);	
+		</script>
+		
+	</body>
+</html>
